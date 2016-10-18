@@ -1,0 +1,29 @@
+<RestClientRequest>
+  <option name="biscuits">
+    <list />
+  </option>
+  <option name="httpMethod" value="POST" />
+  <option name="urlBase" value="http://localhost:8081" />
+  <option name="urlPath" value="/api/login" />
+  <option name="headers">
+    <list>
+      <KeyValuePair>
+        <option name="key" value="Authorization" />
+        <option name="value" value="Basic dGE6dGE=" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="Content-type" />
+        <option name="value" value="application/x-www-form-urlencoded; charset=utf-8" />
+      </KeyValuePair>
+    </list>
+  </option>
+  <option name="parameters">
+    <list />
+  </option>
+  <option name="parametersEnabled" value="true" />
+  <option name="haveTextToSend" value="true" />
+  <option name="haveFileToSend" value="false" />
+  <option name="isFileUpload" value="false" />
+  <option name="textToSend" value="grant_type=password&amp;username=mishaasd&amp;password=123123" />
+  <option name="filesToSend" value="" />
+</RestClientRequest>
