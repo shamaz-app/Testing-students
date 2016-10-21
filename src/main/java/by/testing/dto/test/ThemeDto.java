@@ -18,14 +18,25 @@ public class ThemeDto implements Serializable{
 
     private String testId;
 
+    private Integer questionCount;
+
     public ThemeDto() {
         //do nothing
     }
 
     public ThemeDto(Theme theme) {
         this.id = theme.getId();
+        this.questionCount = theme.getQuestion().size();
         this.theme = theme.getTheme();
         this.testId = theme.getTest().getId();
+    }
+
+    public Integer getQuestionCount() {
+        return questionCount;
+    }
+
+    public void setQuestionCount(Integer questionCount) {
+        this.questionCount = questionCount;
     }
 
     public String getTestId() {

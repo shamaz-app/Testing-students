@@ -19,4 +19,11 @@ public interface QuestionRepository extends SimpleRepository<Question>, QueryByE
             "where th.test.id = :testId ")
     Page<Question> findByTestId(@Param("testId") String testId,
                                 Pageable pageable);
+
+    @Query(value = "Select q " +
+            "from Question q " +
+            "join q.theme th " +
+            "where th.id = :themeId ")
+    Page<Question> findByThemeId(@Param("themeId") String themeId,
+                                Pageable pageable);
 }

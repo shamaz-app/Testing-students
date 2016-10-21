@@ -3,6 +3,7 @@ package by.testing.entities.test;
 import by.testing.dto.test.AnswerOptionDto;
 import by.testing.entities.IdEntity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class AnswerOption extends IdEntity {
 
+    @Column(name = "answer_option")
     @NotNull
     private String option;
 
@@ -20,6 +22,7 @@ public class AnswerOption extends IdEntity {
     @ManyToOne
     private Question question;
 
+    @Column(name = "is_right")
     @NotNull
     private boolean right;
 

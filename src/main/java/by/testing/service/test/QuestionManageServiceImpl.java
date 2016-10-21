@@ -39,8 +39,6 @@ public class QuestionManageServiceImpl extends SimpleServiceImpl<Question, Quest
         } else {
             question = new Question(questionDto);
         }
-        question.setTheme(themeRepository.findById(questionDto.getThemeDto().getId()));
-
         for (AnswerOptionDto answerOptionDto : questionDto.getAnswerOptions()) {
             AnswerOption answerOption;
             if (answerOptionDto.getId() != null) {
@@ -48,10 +46,15 @@ public class QuestionManageServiceImpl extends SimpleServiceImpl<Question, Quest
             } else {
                 answerOption = new AnswerOption(answerOptionDto);
             }
+            answerOption.setOption(answerOptionDto.getOption());
+            answerOption.setQuestion(question);
+            answerOption.setRight(answerOptionDto.isRight());
             question.getAnswerOption().add(answerOption);
         }
+        question.setQuestion(questionDto.getQuestion());
+        question.setTheme(themeRepository.findById(questionDto.getThemeDto().getId()));
 
-        save(question);
+        super.save(question);
     }
 
     @Override
@@ -60,9 +63,6 @@ public class QuestionManageServiceImpl extends SimpleServiceImpl<Question, Quest
         if (theme == null) {
             return repository.findByTestId(questionFilter.getTestId(), questionFilter.getPageableObject()).map(QuestionDto::new);
         }
-        Question question = new Question();
-        question.setTheme(theme);
-        Example<Question> example = Example.of(question);
-        return repository.findAll(example, questionFilter.getPageableObject()).map(QuestionDto::new);
+        return repository.findByThemeId(questionFilter.getThemeId(), questionFilter.getPageableObject()).map(QuestionDto::new);
     }
 }
