@@ -17,6 +17,8 @@ public class AnswerOptionDto {
     @NotNull
     private boolean isRight;
 
+    private boolean deleted;
+
     public AnswerOptionDto() {
         //default constructor
     }
@@ -25,6 +27,14 @@ public class AnswerOptionDto {
         this.id = answerOption.getId();
         this.option = answerOption.getOption();
         this.isRight = answerOption.isRight();
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     public boolean isRight() {

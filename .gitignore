@@ -4,8 +4,9 @@
 # IntelliJ project files
 .idea
 *.iml
-.mvn
-target
-out
-gen
+node_modules
+typings
+app/**/*.js
+app/**/*.map
+dist
 # Created by .ignore support plugin (hsz.mobi)

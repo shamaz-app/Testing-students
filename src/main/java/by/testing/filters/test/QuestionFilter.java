@@ -10,10 +10,19 @@ import javax.validation.constraints.NotNull;
 public class QuestionFilter extends BaseFilter {
 
     @NotNull
+    private String testId;
+
     private String themeId;
 
-    @NotNull
-    private String testId;
+    private String questionFilter;
+
+    public String getQuestionFilter() {
+        return questionFilter == null ? null : "%" + this.questionFilter + "%";
+    }
+
+    public void setQuestionFilter(String questionFilter) {
+        this.questionFilter = questionFilter;
+    }
 
     public String getTestId() {
         return testId;

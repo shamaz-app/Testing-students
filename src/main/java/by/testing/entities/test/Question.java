@@ -23,7 +23,7 @@ public class Question extends IdEntity {
     private Theme theme;
 
     @JoinColumn(name = "QUESTION_ID")
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
     @NotNull
     private List<AnswerOption> answerOption = new ArrayList<>();
 

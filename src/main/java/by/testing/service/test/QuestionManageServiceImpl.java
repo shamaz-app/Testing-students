@@ -39,30 +39,33 @@ public class QuestionManageServiceImpl extends SimpleServiceImpl<Question, Quest
         } else {
             question = new Question(questionDto);
         }
-        for (AnswerOptionDto answerOptionDto : questionDto.getAnswerOptions()) {
-            AnswerOption answerOption;
-            if (answerOptionDto.getId() != null) {
-                answerOption = answerOptionRepository.findById(answerOptionDto.getId());
-            } else {
-                answerOption = new AnswerOption(answerOptionDto);
-            }
-            answerOption.setOption(answerOptionDto.getOption());
-            answerOption.setQuestion(question);
-            answerOption.setRight(answerOptionDto.isRight());
-            question.getAnswerOption().add(answerOption);
-        }
         question.setQuestion(questionDto.getQuestion());
         question.setTheme(themeRepository.findById(questionDto.getThemeDto().getId()));
-
         super.save(question);
+        for (AnswerOptionDto answerOptionDto : questionDto.getAnswerOptions()) {
+            if (answerOptionDto.isDeleted() && answerOptionDto.getId() != null) {
+                answerOptionRepository.delete(answerOptionDto.getId());
+            } else {
+                AnswerOption answerOption;
+                if (answerOptionDto.getId() == null) {
+                    answerOption = new AnswerOption();
+                } else {
+                    answerOption = answerOptionRepository.findById(answerOptionDto.getId());
+                }
+                answerOption.setRight(answerOptionDto.isRight());
+                answerOption.setOption(answerOptionDto.getOption());
+                answerOption.setQuestion(question);
+                answerOptionRepository.save(answerOption);
+            }
+        }
     }
 
     @Override
     public Page<QuestionDto> getQuestionList(QuestionFilter questionFilter) {
         Theme theme = themeRepository.findById(questionFilter.getThemeId());
         if (theme == null) {
-            return repository.findByTestId(questionFilter.getTestId(), questionFilter.getPageableObject()).map(QuestionDto::new);
+            return repository.findByTestId(questionFilter.getTestId(), questionFilter.getQuestionFilter(), questionFilter.getPageableObject()).map(QuestionDto::new);
         }
-        return repository.findByThemeId(questionFilter.getThemeId(), questionFilter.getPageableObject()).map(QuestionDto::new);
+        return repository.findByThemeId(questionFilter.getThemeId(), questionFilter.getQuestionFilter(), questionFilter.getPageableObject()).map(QuestionDto::new);
     }
 }

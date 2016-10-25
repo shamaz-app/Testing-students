@@ -7,6 +7,8 @@ import by.testing.filters.test.TestFilter;
 import by.testing.service.SimpleService;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 /**
  * Created by Анастасия on 09.09.2016.
  */
@@ -27,7 +29,7 @@ public interface TestManageService extends SimpleService<Test> {
      * @param testFilter
      * @return
      */
-    Page<ThemeDto> getThemesForTest(TestFilter testFilter);
+    List<ThemeDto> getThemesForTest(TestFilter testFilter);
 
     Page<TestDto> getTestList(TestFilter testFilter);
 

@@ -16,14 +16,18 @@ public interface QuestionRepository extends SimpleRepository<Question>, QueryByE
     @Query(value = "Select q " +
             "from Question q " +
             "join q.theme th " +
-            "where th.test.id = :testId ")
+            "where th.test.id = :testId " +
+            "and (:questionFilter is null or q.question like :questionFilter) ")
     Page<Question> findByTestId(@Param("testId") String testId,
+                                @Param("questionFilter") String questionFilter,
                                 Pageable pageable);
 
     @Query(value = "Select q " +
             "from Question q " +
             "join q.theme th " +
-            "where th.id = :themeId ")
+            "where th.id = :themeId " +
+            "and (:questionFilter is null or q.question like :questionFilter) ")
     Page<Question> findByThemeId(@Param("themeId") String themeId,
+                                 @Param("questionFilter") String questionFilter,
                                 Pageable pageable);
 }

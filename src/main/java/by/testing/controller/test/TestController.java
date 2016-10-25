@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by Анастасия on 09.09.2016.
@@ -38,7 +39,7 @@ public class TestController extends GenericController<TestManageService>{
      * @return
      */
     @RequestMapping(value = "/theme", method = RequestMethod.GET)
-    public Page<ThemeDto> getThemesByTest(TestFilter testFilter) throws IOException {
+    public List<ThemeDto> getThemesByTest(TestFilter testFilter) throws IOException {
       return service.getThemesForTest(testFilter);
     }
     @RequestMapping(value = "/theme", method = RequestMethod.PUT)

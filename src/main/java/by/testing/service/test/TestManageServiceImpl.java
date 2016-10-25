@@ -18,6 +18,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Анастасия on 09.09.2016.
@@ -62,14 +65,17 @@ public class TestManageServiceImpl extends SimpleServiceImpl<Test, TestRepositor
     }
 
     @Override
-    public Page<ThemeDto> getThemesForTest(TestFilter testFilter) {
+    public List<ThemeDto> getThemesForTest(TestFilter testFilter) {
         if (testFilter.getTestId() == null) {
             ExceptionUtils.throwNullPointerException(this.getClass());
             return null;
         }
-        testFilter.setSortProperty("theme");
-        return themeRepository.findByTestId(testFilter.getTestId(), testFilter.getPageableObject())
-                .map(ThemeDto::new);
+        List<Theme> themeList = themeRepository.findByTestId(testFilter.getTestId());
+        return themeList.stream()
+                .sorted((o1, o2) -> o1.getTheme()
+                .compareTo(o2.getTheme()))
+                .map(ThemeDto::new)
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -18,7 +18,6 @@ public interface ThemeRepository extends SimpleRepository<Theme>, QueryByExample
     @Query(value = "Select th " +
             "from Theme th " +
             "where th.test.id = :testId ")
-    Page<Theme> findByTestId(@Param("testId") String testId,
-                           Pageable pageable);
+    List<Theme> findByTestId(@Param("testId") String testId);
 
 }
