@@ -2,10 +2,10 @@ package by.testing.service;
 
 import by.testing.entities.IdEntity;
 import by.testing.repository.SimpleRepository;
-import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Анастасия on 06.09.2016.
@@ -34,11 +34,13 @@ public abstract class SimpleServiceImpl<E extends IdEntity, R extends SimpleRepo
     }
 
     @Override
+    @Transactional
     public void delete(String id) {
         repository.delete(id);
     }
 
     @Override
+    @Transactional
     public String save(E entity) {
         repository.save(entity);
         return entity.getId();
